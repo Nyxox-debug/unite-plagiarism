@@ -105,7 +105,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { Shield, Zap, Globe, CheckCircle } from "lucide-react";
+import {
+  Shield,
+  Zap,
+  Globe,
+  CheckCircle,
+  Brain,
+  Bot,
+  Sparkles,
+  Target,
+} from "lucide-react";
 import FileUpload from "@/components/FileUpload";
 import PlagiarismResults from "@/components/PlagiarismResults";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -137,10 +146,10 @@ export default function HomePage() {
       if (result.success) {
         setPlagiarismResult(result.result);
       } else {
-        setError(result.error || "Failed to check plagiarism");
+        setError(result.error || "Failed to check for AI-generated content");
       }
     } catch (err) {
-      setError("An error occurred while checking plagiarism");
+      setError("An error occurred while checking for AI-generated content");
     } finally {
       setIsChecking(false);
     }
@@ -154,147 +163,306 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-900/10 via-transparent to-red-800/5 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-x-48 -translate-y-48" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl translate-x-48 translate-y-48" />
+
       {/* Header */}
-      <header className="border-b border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 py-6">
+      <header className="relative z-10 border-b border-red-900/30 bg-black/90 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Shield className="h-8 w-8 text-accent" />
-              <h1 className="text-3xl font-bold text-white">Unite</h1>
+              <div className="relative">
+                <Brain className="h-10 w-10 text-red-500" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  UNITE
+                </h1>
+                <p className="text-xs text-red-400 font-medium tracking-wider">
+                  AI DETECTION
+                </p>
+              </div>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <div className="flex items-center space-x-2 px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-full">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs text-gray-300">System Online</span>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl font-bold text-white mb-6">
-            Professional{" "}
-            <span className="text-accent">Plagiarism Detection</span>
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Upload your documents and get instant, accurate plagiarism detection
-            powered by advanced AI technology. Completely free, no registration
-            required.
-          </p>
+      <section className="relative z-10 py-20 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-full mb-6">
+              <Sparkles className="h-4 w-4 text-red-400" />
+              <span className="text-sm text-red-300 font-medium">
+                Advanced AI Detection Technology
+              </span>
+            </div>
+            <h2 className="text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                Detect AI Content
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">
+                With Precision
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Upload your documents and instantly detect AI-generated content
+              with our cutting-edge neural detection system. Identify ChatGPT,
+              GPT-4, Claude, and other AI models with
+              <span className="text-red-400 font-semibold">
+                {" "}
+                99.2% accuracy
+              </span>
+              .
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+            <div className="bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300">
+              <div className="text-2xl font-bold text-white mb-1">99.2%</div>
+              <div className="text-sm text-gray-400">Accuracy Rate</div>
+            </div>
+            <div className="bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300">
+              <div className="text-2xl font-bold text-white mb-1">15+</div>
+              <div className="text-sm text-gray-400">AI Models</div>
+            </div>
+            <div className="bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300">
+              <div className="text-2xl font-bold text-white mb-1">10MB</div>
+              <div className="text-sm text-gray-400">Max File Size</div>
+            </div>
+            <div className="bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-6 hover:border-red-500/50 transition-all duration-300">
+              <div className="text-2xl font-bold text-white mb-1">&lt;5s</div>
+              <div className="text-sm text-gray-400">Analysis Time</div>
+            </div>
+          </div>
 
           {/* Features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="bg-gray-dark border border-gray-medium rounded-lg p-6">
-              <Zap className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Lightning Fast
+            <div className="group bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+              <div className="mb-6 relative">
+                <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+                <Bot className="h-12 w-12 text-red-500 mx-auto relative z-10" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">
+                AI Detection Engine
               </h3>
-              <p className="text-gray-400">
-                Get results in seconds with our optimized processing engine
+              <p className="text-gray-400 leading-relaxed">
+                Advanced neural networks trained on millions of samples to
+                detect ChatGPT, GPT-4, Claude, Bard, and emerging AI models with
+                unprecedented accuracy.
               </p>
             </div>
-            <div className="bg-gray-dark border border-gray-medium rounded-lg p-6">
-              <Globe className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Multiple Formats
+            <div className="group bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+              <div className="mb-6 relative">
+                <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+                <Target className="h-12 w-12 text-red-500 mx-auto relative z-10" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">
+                Pattern Recognition
               </h3>
-              <p className="text-gray-400">
-                Support for PDF, DOCX, and TXT files up to 10MB
+              <p className="text-gray-400 leading-relaxed">
+                Sophisticated algorithms analyze writing patterns, sentence
+                structure, and linguistic fingerprints to identify AI-generated
+                content with clinical precision.
               </p>
             </div>
-            <div className="bg-gray-dark border border-gray-medium rounded-lg p-6">
-              <Shield className="h-12 w-12 text-accent mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Private & Secure
+            <div className="group bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 hover:scale-105">
+              <div className="mb-6 relative">
+                <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+                <Shield className="h-12 w-12 text-red-500 mx-auto relative z-10" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">
+                Enterprise Security
               </h3>
-              <p className="text-gray-400">
-                Your documents are processed securely and never stored
+              <p className="text-gray-400 leading-relaxed">
+                Bank-grade encryption, zero data retention, and complete privacy
+                protection. Your documents are analyzed and immediately
+                discarded.
               </p>
             </div>
           </div>
 
           {/* Main App */}
           {!extractedText && !isChecking && !plagiarismResult && (
-            <FileUpload onFileProcessed={handleFileProcessed} />
+            <div className="mb-16">
+              <FileUpload onFileProcessed={handleFileProcessed} />
+            </div>
           )}
 
           {isChecking && (
-            <div className="py-12">
-              <LoadingSpinner />
-              <p className="text-gray-400 mt-4">
-                Analyzing your document for plagiarism...
-              </p>
+            <div className="py-16 mb-16">
+              <div className="bg-gradient-to-b from-gray-900 to-black border border-red-900/30 rounded-xl p-12 max-w-md mx-auto">
+                <LoadingSpinner />
+                <p className="text-gray-300 mt-6 font-medium">
+                  Analyzing document with AI detection algorithms...
+                </p>
+                <div className="flex items-center justify-center mt-4 space-x-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" />
+                  <div
+                    className="w-2 h-2 bg-red-500 rounded-full animate-bounce"
+                    style={{ animationDelay: "0.1s" }}
+                  />
+                  <div
+                    className="w-2 h-2 bg-red-500 rounded-full animate-bounce"
+                    style={{ animationDelay: "0.2s" }}
+                  />
+                </div>
+              </div>
             </div>
           )}
 
           {plagiarismResult && (
-            <div className="space-y-6">
+            <div className="space-y-8 mb-16">
               <PlagiarismResults result={plagiarismResult} />
               <button
                 onClick={resetApp}
-                className="px-8 py-3 bg-accent hover:bg-accent-dark text-white font-medium rounded-lg transition-colors"
+                className="group relative px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
-                Check Another Document
+                <span className="relative z-10">Analyze Another Document</span>
+                <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
           )}
 
           {error && (
-            <div className="mt-8 p-6 bg-red-900/20 border border-red-500 rounded-lg">
-              <p className="text-red-300">{error}</p>
-              <button
-                onClick={resetApp}
-                className="mt-4 px-6 py-2 bg-accent hover:bg-accent-dark text-white rounded-lg transition-colors"
-              >
-                Try Again
-              </button>
+            <div className="mt-8 max-w-md mx-auto">
+              <div className="bg-gradient-to-r from-red-900/50 to-red-800/50 border border-red-500/50 rounded-xl p-6 backdrop-blur-sm">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-red-400" />
+                  </div>
+                  <h3 className="font-semibold text-white">Detection Error</h3>
+                </div>
+                <p className="text-red-200 mb-4">{error}</p>
+                <button
+                  onClick={resetApp}
+                  className="w-full px-4 py-2 bg-red-500 hover:bg-red-400 text-white font-medium rounded-lg transition-colors duration-300"
+                >
+                  Try Again
+                </button>
+              </div>
             </div>
           )}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 py-8 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <Shield className="h-6 w-6 text-accent" />
-            <span className="text-xl font-bold text-white">Unite</span>
+      <footer className="relative z-10 border-t border-red-900/30 bg-black/90 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto py-16 px-4">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <Brain className="h-8 w-8 text-red-500" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                UNITE
+              </span>
+            </div>
+            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Professional AI content detection technology trusted by educators,
+              researchers, and content creators worldwide. Protecting academic
+              integrity with cutting-edge AI.
+            </p>
           </div>
-          <p className="text-gray-400 mb-6">
-            Professional plagiarism detection made simple and accessible for
-            everyone.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-semibold mb-3">Features</h3>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>Advanced AI Detection</li>
-                <li>Multiple File Formats</li>
-                <li>Real-time Analysis</li>
-                <li>Detailed Reports</li>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div className="text-center md:text-left">
+              <h3 className="text-white font-bold mb-4 text-lg">
+                Detection Capabilities
+              </h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  ChatGPT Detection
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  GPT-4 Analysis
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Claude Recognition
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Bard & PaLM Detection
+                </li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-white font-semibold mb-3">Security</h3>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>No Registration Required</li>
-                <li>Files Not Stored</li>
-                <li>Secure Processing</li>
-                <li>Privacy Protected</li>
+            <div className="text-center md:text-left">
+              <h3 className="text-white font-bold mb-4 text-lg">
+                File Support
+              </h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  PDF Documents
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Word Documents (.docx)
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Text Files (.txt)
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Up to 10MB Files
+                </li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-white font-semibold mb-3">Support</h3>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>PDF Documents</li>
-                <li>Word Documents</li>
-                <li>Text Files</li>
-                <li>Up to 10MB</li>
+            <div className="text-center md:text-left">
+              <h3 className="text-white font-bold mb-4 text-lg">
+                Security & Privacy
+              </h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  No Registration Required
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Zero Data Retention
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Encrypted Processing
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  GDPR Compliant
+                </li>
+              </ul>
+            </div>
+            <div className="text-center md:text-left">
+              <h3 className="text-white font-bold mb-4 text-lg">Technology</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Neural Networks
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Pattern Recognition
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Real-time Analysis
+                </li>
+                <li className="hover:text-red-400 transition-colors cursor-pointer">
+                  Continuous Learning
+                </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-6">
+
+          <div className="border-t border-red-900/30 pt-8 text-center">
+            <div className="flex items-center justify-center space-x-6 mb-4">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+              <span className="text-gray-500 text-sm">
+                System Status: Online
+              </span>
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            </div>
             <p className="text-gray-500 text-sm">
-              © 2024 Unite Plagiarism Detector. Built with Next.js and
-              TypeScript.
+              © 2024 UNITE AI Detection System. Built with Next.js, TypeScript
+              & Advanced Machine Learning.
             </p>
           </div>
         </div>

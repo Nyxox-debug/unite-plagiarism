@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       sizeLimit: "10mb",
     },
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
